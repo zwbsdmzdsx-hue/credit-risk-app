@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+*.pyo
+predictions_history/
+.DS_Store
