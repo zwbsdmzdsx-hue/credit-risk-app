@@ -59,7 +59,7 @@ python -m streamlit run app.py
 
 ### 2.2 界面概览
 
-> **![项目架构图](./assets/主界面.png)**
+> <img src="./assets/主界面.png" width="700">
 > 说明：展示应用打开后的初始界面，包括侧边栏和主内容区域
 
 **界面组成**:
@@ -91,14 +91,14 @@ python -m streamlit run app.py
 
 点击侧边栏的 **📝 单客户预测** 进入单客户评估页面。
 
-> **![项目架构图](./assets/预测界面.png)**
+> <img src="./assets/预测界面.png" width="700">
 > 说明：展示单客户预测页面的初始状态，显示所有输入表单
 
 ### 3.2 输入客户信息
 
 #### 3.2.1 基本信息
 
-> **![项目架构图](./assets/预测界面.png)**
+> <img src="./assets/预测界面.png" width="700">
 > 说明：展开的"基本信息"表单，包含性别、年龄、婚姻状况等字段
 
 | 字段 | 说明 | 取值范围 |
@@ -113,7 +113,7 @@ python -m streamlit run app.py
 
 #### 3.2.2 财务信息
 
-> **![项目架构图](./assets/财务信息.png)**
+> <img src="./assets/财务信息.png" width="700">
 > 说明：展开的"财务信息"表单，包含收入、贷款金额、月供等
 
 | 字段 | 说明 | 单位 |
@@ -166,7 +166,7 @@ python -m streamlit run app.py
 
 填写完所有信息后，点击 **🔍 开始评估** 按钮。
 
-> ![项目架构图](./assets/评估结果.png)
+> <img src="./assets/评估结果.png" width="700">
 > 说明：展示完整的评估结果，包括违约概率、风险等级、决策建议
 
 #### 3.3.2 结果解读
@@ -215,7 +215,7 @@ python -m streamlit run app.py
 
 点击侧边栏的 **📤 批量预测**。
 
-![项目架构图](./assets/批量预测.png)
+<img src="./assets/批量预测.png" width="700">
 > 说明：展示批量预测页面的三步骤界面
 
 ### 4.2 步骤1：下载CSV模板
@@ -265,7 +265,7 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 
 点击侧边栏的 **📊 模型报告**。
 
-> ![项目架构图](./assets/模型报告.png)
+> <img src="./assets/模型报告.png" width="700">
 > 说明：展示模型性能指标、特征重要性、公平性分析
 
 ### 5.2 模型性能
@@ -276,12 +276,10 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 | F1 Score | ~0.25 | 精确率和召回率的调和平均 |
 | 最佳阈值 | 0.24 | 分类决策的最优分界点 |
 
-> **[截图占位符 17: 模型性能指标卡片]**
 > 说明：展示三个性能指标的Metric卡片
 
 ### 5.3 特征重要性
 
-> **[截图占位符 18: 特征重要性条形图]**
 > 说明：展示Top 15特征的横向条形图
 
 **最重要的特征**:
@@ -294,7 +292,6 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 
 ### 5.4 公平性分析
 
-> **[截图占位符 19: 公平性分析指标]**
 > 说明：展示性别DI和年龄DI的评估结果
 
 | 指标 | 值 | 状态 |
@@ -314,7 +311,7 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 
 点击侧边栏的 **📜 预测历史**。
 
-> ![项目架构图](./assets/预测历史.png)
+> <img src="./assets/预测历史.png" width="700">
 > 说明：展示历史记录列表和统计信息
 
 **统计摘要**:
@@ -343,7 +340,7 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 
 点击侧边栏的 **⚙️ 高级设置**。
 
-> ![项目架构图](./assets/高级设置.png)
+> <img src="./assets/高级设置.png" width="700">
 > 说明：展示语言选择和阈值调整两个设置项
 
 ### 7.2 语言切换
@@ -354,7 +351,6 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 
 切换语言后，界面会立即更新。
 
-> **[截图占位符 23: 中英文界面对比]**
 > 说明：展示同一页面在中文和英文下的对比
 
 ### 7.3 阈值调整
@@ -370,7 +366,6 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 
 **调整方法**: 拖动滑块调整阈值
 
-> **[截图占位符 24: 阈值调整滑块]**
 > 说明：展示阈值调整的滑块控件
 
 **影响**:
@@ -384,7 +379,7 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 - **F1**: 综合评分
 - **Threshold**: 当前阈值
 
-> **[截图占位符 25: 侧边栏模型信息区域]**
+> ！[侧边栏](assets/侧边栏.png)
 > 说明：展示侧边栏底部的模型信息卡片
 
 ---

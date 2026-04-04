@@ -39,6 +39,7 @@ TRANSLATIONS = {
         'page_batch': '📤 批量预测',
         'page_report': '📊 模型报告',
         'page_history': '📜 预测历史',
+        'page_user_guide': '📖 使用手册',
         'page_about': 'ℹ️ 关于',
 
         # 单客户预测
@@ -236,6 +237,7 @@ TRANSLATIONS = {
         'page_batch': '📤 Batch Prediction',
         'page_report': '📊 Model Report',
         'page_history': '📜 Prediction History',
+        'page_user_guide': '📖 User Guide',
         'page_about': 'ℹ️ About',
 
         # Single prediction
@@ -995,6 +997,49 @@ def page_about(lang: str):
     {t['disclaimer_text']}
     """)
 
+def page_user_guide(lang: str):
+    """用户使用手册页面"""
+    import re
+
+    # 读取 USER_GUIDE.md
+    user_guide_path = BASE_DIR / 'USER_GUIDE.md'
+    assets_path = BASE_DIR / 'assets'
+
+    if user_guide_path.exists():
+        with open(user_guide_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        # 分割内容为各个部分
+        parts = re.split(r'(<img src="[^"]+"[^>]*>)', content)
+
+        for part in parts:
+            if part.strip().startswith('<img'):
+                # 提取图片路径
+                match = re.search(r'src="([^"]+)"', part)
+                if match:
+                    img_rel_path = match.group(1)
+                    # 转换为绝对路径
+                    img_path = BASE_DIR / img_rel_path.replace('./', '')
+
+                    if img_path.exists():
+                        # 提取宽度
+                        width_match = re.search(r'width="(\d+)"', part)
+                        width = int(width_match.group(1)) if width_match else 700
+
+                        st.image(str(img_path), width=width)
+            else:
+                # 检查是否是说明文字
+                if '说明：' in part:
+                    # 提取说明文字
+                    desc_match = re.search(r'说明：([^<]+)', part)
+                    if desc_match:
+                        st.caption(desc_match.group(1))
+                elif part.strip():
+                    # 其他 markdown 内容
+                    st.markdown(part)
+    else:
+        st.error("USER_GUIDE.md not found")
+
 # ========== 8. 模型加载 / Model Loading ==========
 @st.cache_resource
 def load_model_and_encoder():
@@ -1054,7 +1099,16 @@ def main():
         t['page_about']: "about"
     }
 
-    selected_page = st.sidebar.radio(t['select_function'], list(pages.keys()))
+    selected_page = st.sidebar.radio(t['select_function'], list(pages.keys()),
+                                      key='main_radio')
+
+    # 如果用户切换了侧边栏选项，清除使用手册状态
+    if 'last_radio' not in st.session_state:
+        st.session_state['last_radio'] = selected_page
+    elif st.session_state['last_radio'] != selected_page:
+        st.session_state['nav_page'] = None
+        st.session_state['last_radio'] = selected_page
+
     st.sidebar.markdown("---")
 
     # 阈值调整
@@ -1094,8 +1148,19 @@ def main():
     st.sidebar.write(f"**F1**: {credit_model.f1:.4f}")
     st.sidebar.write(f"**Threshold**: {credit_model.threshold:.4f}")
 
+    st.sidebar.markdown("---")
+
+    # 使用手册按钮（侧边栏底部）
+    if st.sidebar.button("📖 " + t['page_user_guide'], use_container_width=True):
+        st.session_state['nav_page'] = 'user_guide'
+        st.rerun()
+
     # 路由到对应页面
-    page = pages[selected_page]
+    # 检查是否从使用手册按钮触发
+    if st.session_state.get('nav_page') == 'user_guide':
+        page = 'user_guide'
+    else:
+        page = pages[selected_page]
 
     if page == "single":
         page_single_prediction(credit_model, lang)
@@ -1105,6 +1170,8 @@ def main():
         page_model_report(credit_model, lang)
     elif page == "history":
         page_history(lang)
+    elif page == "user_guide":
+        page_user_guide(lang)
     elif page == "about":
         page_about(lang)
 
