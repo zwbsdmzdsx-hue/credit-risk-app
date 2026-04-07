@@ -1001,8 +1001,12 @@ def page_user_guide(lang: str):
     """用户使用手册页面"""
     import re
 
-    # 读取 USER_GUIDE.md
-    user_guide_path = BASE_DIR / 'USER_GUIDE.md'
+    # 根据语言选择对应的手册文件
+    if lang == 'zh':
+        user_guide_path = BASE_DIR / 'USER_GUIDE.md'
+    else:
+        user_guide_path = BASE_DIR / 'USER_GUIDE_EN.md'
+
     assets_path = BASE_DIR / 'assets'
 
     if user_guide_path.exists():
