@@ -23,6 +23,50 @@ from sklearn.preprocessing import OrdinalEncoder
 import plotly.graph_objects as go
 import plotly.express as px
 
+# ========== 1.1 页面配置 / Page Configuration ==========
+st.set_page_config(
+    page_title="信贷风险评估系统",
+    page_icon="🏦",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# ========== 1.2 辅助函数 / Helper Functions ==========
+def get_responsive_columns():
+    """根据屏幕宽度返回响应式列数
+
+    返回值: 列数 (2-4)
+    """
+    # 获取屏幕宽度
+    screen_width = st.session_state.get('screen_width', 1200)
+
+    if screen_width >= 1600:
+        return 4  # 超宽屏：4列
+    elif screen_width >= 1200:
+        return 3  # 宽屏：3列
+    else:
+        return 2  # 普通屏幕：2列
+
+def create_responsive_grid(items, item_creator, max_cols=4):
+    """创建响应式网格布局
+
+    Args:
+        items: 要显示的项目列表
+        item_creator: 创建单个项目的函数，接收 (col, item) 参数
+        max_cols: 最大列数
+    """
+    num_cols = get_responsive_columns()
+    num_cols = min(num_cols, max_cols)
+
+    # 创建列
+    cols = st.columns(num_cols)
+
+    # 分配项目到各列
+    for i, item in enumerate(items):
+        col = cols[i % num_cols]
+        with col:
+            item_creator(col, item)
+
 # ========== 2. 语言字典 / Language Dictionary ==========
 TRANSLATIONS = {
     'zh': {
@@ -151,6 +195,7 @@ TRANSLATIONS = {
         'predicting': '预测中...',
         'prediction_complete': '✅ 预测完成！',
         'prediction_results': '预测结果',
+        'default_prob_col': '违约概率',
         'download_results': '💾 下载结果CSV',
 
         # 模型报告
@@ -349,6 +394,7 @@ TRANSLATIONS = {
         'predicting': 'Predicting...',
         'prediction_complete': '✅ Prediction complete!',
         'prediction_results': 'Prediction Results',
+        'default_prob_col': 'Default Probability',
         'download_results': '💾 Download Results CSV',
 
         # Model report
@@ -474,7 +520,7 @@ COLORS = {
 }
 
 SEED = 42
-DEFAULT_THRESHOLD = 0.24
+DEFAULT_THRESHOLD = 0.2
 TARGET_COL = 'TARGET'
 
 # 路径配置
@@ -596,10 +642,6 @@ def page_single_prediction(credit_model, lang: str):
         family_status_map = {"已婚": "Married", "单身": "Single / not married", "未婚同居": "Civil marriage", "丧偶": "Widow", "分居": "Separated"}
         income_type_map = {"在职": "Working", "公务员": "State servant", "退休": "Pensioner", "个体工商户": "Commercial associate"}
         occupation_map = {"劳工": "Laborers", "核心员工": "Core staff", "销售": "Sales staff", "经理": "Managers", "司机": "Drivers", "其他": "Laborers"}
-        gender_options = [t['gender_male'], t['gender_female']]
-        status_options = [t['status_married'], t['status_single'], t['status_civil'], t['status_widow'], t['status_separated']]
-        income_options = [t['income_working'], t['income_state'], t['income_pensioner'], t['income_commercial']]
-        occupation_options = [t['occupation_laborers'], t['occupation_core'], t['occupation_sales'], t['occupation_managers'], t['occupation_drivers'], t['occupation_other']]
         housing_options = [t['housing_house'], t['housing_rented'], t['housing_parents'], t['housing_other']]
         age_caption = f"将自动转换为出生天数: {-int(st.session_state.get('age_years', 27) * 365.25)}"
         work_caption = f"将自动转换为工作天数: {-int(st.session_state.get('work_years', 3) * 365)}"
@@ -608,54 +650,98 @@ def page_single_prediction(credit_model, lang: str):
         family_status_map = {"Married": "Married", "Single": "Single / not married", "Civil Marriage": "Civil marriage", "Widow": "Widow", "Separated": "Separated"}
         income_type_map = {"Working": "Working", "State servant": "State servant", "Pensioner": "Pensioner", "Commercial associate": "Commercial associate"}
         occupation_map = {"Laborers": "Laborers", "Core staff": "Core staff", "Sales staff": "Sales staff", "Managers": "Managers", "Drivers": "Drivers", "Other": "Laborers"}
-        gender_options = [t['gender_male'], t['gender_female']]
-        status_options = [t['status_married'], t['status_single'], t['status_civil'], t['status_widow'], t['status_separated']]
-        income_options = [t['income_working'], t['income_state'], t['income_pensioner'], t['income_commercial']]
-        occupation_options = [t['occupation_laborers'], t['occupation_core'], t['occupation_sales'], t['occupation_managers'], t['occupation_drivers'], t['occupation_other']]
         housing_options = [t['housing_house'], t['housing_rented'], t['housing_parents'], t['housing_other']]
         age_caption = f"Auto-converted to birth days: {-int(st.session_state.get('age_years', 27) * 365.25)}"
         work_caption = f"Auto-converted to employment days: {-int(st.session_state.get('work_years', 3) * 365)}"
 
     # 输入表单
     with st.expander(t['basic_info'], expanded=True):
-        col1, col2 = st.columns(2)
-        with col1:
-            gender = st.selectbox(t['gender'], gender_options, index=0)
+        num_cols = get_responsive_columns()
+        cols = st.columns(num_cols)
+
+        with cols[0]:
+            gender = st.selectbox(t['gender'], [t['gender_male'], t['gender_female']], index=0)
             age_years = st.number_input(t['age'], value=27, min_value=18, max_value=100, key='age_years')
             st.caption(age_caption)
-        with col2:
-            family_status = st.selectbox(t['marital_status'], status_options, index=0)
-            children = st.number_input(t['children'], value=0, min_value=0, max_value=20)
-            family_members = st.number_input(t['family_members'], value=2, min_value=1)
+
+        if num_cols >= 3:
+            with cols[1]:
+                family_status = st.selectbox(t['marital_status'], [t['status_married'], t['status_single'], t['status_civil'], t['status_widow'], t['status_separated']], index=0)
+                children = st.number_input(t['children'], value=0, min_value=0, max_value=20)
+            with cols[2]:
+                family_members = st.number_input(t['family_members'], value=2, min_value=1)
+        else:
+            with cols[1]:
+                family_status = st.selectbox(t['marital_status'], [t['status_married'], t['status_single'], t['status_civil'], t['status_widow'], t['status_separated']], index=0)
+                family_members = st.number_input(t['family_members'], value=2, min_value=1)
+                children = st.number_input(t['children'], value=0, min_value=0, max_value=20)
 
     with st.expander(t['financial_info']):
-        col1, col2 = st.columns(2)
-        with col1:
+        num_cols = get_responsive_columns()
+        cols = st.columns(num_cols)
+
+        with cols[0]:
             income = st.number_input(t['annual_income'], value=180000, min_value=0, step=10000)
+        with cols[1]:
             credit = st.number_input(t['loan_amount'], value=500000, min_value=0, step=10000)
-        with col2:
-            annuity = st.number_input(t['monthly_payment'], value=25000, min_value=0, step=1000)
-            goods_price = st.number_input(t['goods_price'], value=450000, min_value=0, step=10000)
+
+        if num_cols == 4:
+            with cols[2]:
+                annuity = st.number_input(t['monthly_payment'], value=25000, min_value=0, step=1000)
+            with cols[3]:
+                goods_price = st.number_input(t['goods_price'], value=450000, min_value=0, step=10000)
+        elif num_cols == 3:
+            with cols[2]:
+                annuity = st.number_input(t['monthly_payment'], value=25000, min_value=0, step=1000)
+                goods_price = st.number_input(t['goods_price'], value=450000, min_value=0, step=10000)
+        else:  # num_cols == 2
+            with cols[0]:
+                annuity = st.number_input(t['monthly_payment'], value=25000, min_value=0, step=1000)
+            with cols[1]:
+                goods_price = st.number_input(t['goods_price'], value=450000, min_value=0, step=10000)
 
     with st.expander(t['employment_info']):
-        col1, col2 = st.columns(2)
-        with col1:
-            income_type = st.selectbox(t['income_type'], income_options)
-            occupation = st.selectbox(t['occupation'], occupation_options)
-        with col2:
-            work_years = st.number_input(t['employment_years'], value=3, min_value=0, max_value=50, key='work_years')
-            st.caption(work_caption)
+        num_cols = get_responsive_columns()
+        cols = st.columns(num_cols)
+
+        with cols[0]:
+            income_type = st.selectbox(t['income_type'], [t['income_working'], t['income_state'], t['income_pensioner'], t['income_commercial']])
+            if num_cols <= 2:
+                work_years = st.number_input(t['employment_years'], value=3, min_value=0, max_value=50, key='work_years')
+                st.caption(work_caption)
+        with cols[1]:
+            occupation = st.selectbox(t['occupation'], [t['occupation_laborers'], t['occupation_core'], t['occupation_sales'], t['occupation_managers'], t['occupation_drivers'], t['occupation_other']])
+            if num_cols <= 2:
+                pass  # work_years already handled above
+
+        if num_cols >= 3:
+            with cols[2]:
+                work_years = st.number_input(t['employment_years'], value=3, min_value=0, max_value=50, key='work_years')
+                st.caption(work_caption)
 
     with st.expander(t['asset_info']):
-        col1, col2 = st.columns(2)
-        with col1:
+        num_cols = get_responsive_columns()
+        cols = st.columns(num_cols)
+
+        with cols[0]:
             own_car = st.selectbox(t['own_car'], ["Y", "N"], index=1)
+        with cols[1]:
             own_realty = st.selectbox(t['own_realty'], ["Y", "N"], index=0)
+
+        if num_cols == 4:
+            with cols[2]:
+                if own_car == "Y":
+                    car_age = st.number_input(t['car_age'], value=5, min_value=0)
+                else:
+                    car_age = 0
+                    st.write('-')  # placeholder when no car
+            with cols[3]:
+                housing = st.selectbox(t['housing_type'], housing_options)
+        else:
             if own_car == "Y":
                 car_age = st.number_input(t['car_age'], value=5, min_value=0)
             else:
                 car_age = 0
-        with col2:
             housing = st.selectbox(t['housing_type'], housing_options)
 
     with st.expander(t['external_scores']):
@@ -853,6 +939,7 @@ def page_batch_prediction(credit_model, lang: str):
                     probabilities = credit_model.predict_proba(X)
 
                     df['TARGET_PROB'] = probabilities
+                    df[t['default_prob_col']] = (probabilities * 100).round(2).astype(str) + '%'
                     df['RISK_LEVEL'] = df['TARGET_PROB'].apply(lambda p: get_risk_level(p, credit_model.threshold, lang)['level'])
                     df['DECISION'] = df['TARGET_PROB'].apply(lambda p: get_risk_level(p, credit_model.threshold, lang)['decision'])
 
@@ -874,7 +961,7 @@ def page_batch_prediction(credit_model, lang: str):
                     col3.metric(f"❌ {t['risk_high']}", high)
 
                     st.subheader(t['prediction_results'])
-                    result_cols = [col for col in ['SK_ID_CURR', 'TARGET_PROB', 'RISK_LEVEL', 'DECISION'] if col in df.columns]
+                    result_cols = [col for col in ['SK_ID_CURR', t['default_prob_col'], 'TARGET_PROB', 'RISK_LEVEL', 'DECISION'] if col in df.columns]
                     st.dataframe(df[result_cols], use_container_width=True)
 
                     result_csv = df.to_csv(index=False).encode('utf-8-sig')
@@ -1057,7 +1144,7 @@ def load_model_and_encoder():
             from lightgbm import LGBMClassifier
             self.model = joblib.load(model_path)
             self.metrics = pd.read_csv(metrics_path)
-            self.threshold = self.metrics['best_threshold'].values[0]
+            self.threshold = DEFAULT_THRESHOLD
             self.auc = self.metrics['cv_auc_oof'].values[0]
             self.f1 = self.metrics['best_f1'].values[0]
 
@@ -1135,7 +1222,7 @@ def main():
             t['threshold_label'],
             min_value=0.05,
             max_value=0.50,
-            value=0.24,
+            value=credit_model.threshold,
             step=0.01,
             format="%.4f",
             help=t['threshold_help']
