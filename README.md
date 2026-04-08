@@ -1,7 +1,9 @@
 # 信贷风险评估系统
 
 ## 启动应用
+在线访问：https://credit-risk-app-fhwuegfrnlfqduffuzt2am.streamlit.app/
 
+本地运行：
 ```bash
 # 1. 安装依赖
 pip install -r requirements.txt
