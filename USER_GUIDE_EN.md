@@ -59,8 +59,8 @@ The application will open automatically in your browser (or visit `http://localh
 
 ### 2.2 Interface Overview
 
-> **[Screenshot Placeholder 1: Main Interface]**
-> Description: Initial application view showing sidebar and main content area
+![Main Interface](assets/Main%20Interface.png)
+*Initial application view showing sidebar and main content area*
 
 **Interface Components**:
 
@@ -87,19 +87,13 @@ The application will open automatically in your browser (or visit `http://localh
 
 ## 3. Single Customer Assessment
 
-### 3.1 Access the Page
 
-Click **📝 Single Prediction** in the sidebar.
+### 3.1 Enter Customer Information
 
-> **[Screenshot Placeholder 2: Single Prediction Page Initial State]**
-> Description: Initial state of single customer prediction page with all input forms
+#### 3.1.1 Basic Information
 
-### 3.2 Enter Customer Information
-
-#### 3.2.1 Basic Information
-
-> **[Screenshot Placeholder 3: Basic Information Input Area]**
-> Description: Expanded "Basic Information" form with gender, age, marital status fields
+![Basic Information Input Area](assets/Basic%20Information%20Input%20Area.png)
+*Expanded "Basic Information" form with gender, age, marital status fields*
 
 | Field | Description | Range |
 |------|-------------|-------|
@@ -111,10 +105,10 @@ Click **📝 Single Prediction** in the sidebar.
 
 **Note**: Age and employment duration are automatically converted to negative days (internal format).
 
-#### 3.2.2 Financial Information
+#### 3.1.2 Financial Information
 
-> **[Screenshot Placeholder 4: Financial Information Input Area]**
-> Description: Expanded "Financial Information" form with income, loan amount, monthly payment
+![Financial Information Input Area](assets/Financial%20Information%20Input%20Area.png)
+*Expanded "Financial Information" form with income, loan amount, monthly payment*
 
 | Field | Description | Unit |
 |------|-------------|------|
@@ -127,10 +121,10 @@ Click **📝 Single Prediction** in the sidebar.
 - Payment-to-Income Ratio = Monthly Payment / Annual Income
 - Credit-to-Income Ratio = Loan Amount / Annual Income
 
-#### 3.2.3 Employment Information
+#### 3.1.3 Employment Information
 
-> **[Screenshot Placeholder 5: Employment Information Input Area]**
-> Description: Expanded "Employment Information" form with income type, occupation, work years
+![Employment Information Input Area](assets/Employment%20Information%20Input%20Area.png)
+*Expanded "Employment Information" form with income type, occupation, work years*
 
 | Field | Description | Options |
 |------|-------------|--------|
@@ -138,10 +132,10 @@ Click **📝 Single Prediction** in the sidebar.
 | Occupation Type | Occupation category | Laborers, Core staff, Sales staff, Managers, Drivers, Other |
 | Employment Years | Current work duration | 0-50 years |
 
-#### 3.2.4 Asset Information
+#### 3.1.4 Asset Information
 
-> **[Screenshot Placeholder 6: Asset Information Input Area]**
-> Description: Expanded "Asset Information" form with property, vehicle, etc.
+![Asset Information Input Area](assets/Asset%20Information%20Input%20Area.png)
+*Expanded "Asset Information" form with property, vehicle, etc.*
 
 | Field | Description | Options |
 |------|-------------|--------|
@@ -150,10 +144,10 @@ Click **📝 Single Prediction** in the sidebar.
 | Car Age | Vehicle usage years | 0+ years |
 | Housing Type | Living situation | House/apartment, Rented, With parents |
 
-#### 3.2.5 External Credit Scores
+#### 3.1.5 External Credit Scores
 
-> **[Screenshot Placeholder 7: External Credit Scores Input Area]**
-> Description: Expanded "External Credit Scores" form with three sliders
+![External Credit Scores Input Area](assets/External%20Credit%20Scores%20Input%20Area.png)
+*Expanded "External Credit Scores" form with three sliders*
 
 | Field | Description | Range |
 |------|-------------|-------|
@@ -163,24 +157,21 @@ Click **📝 Single Prediction** in the sidebar.
 
 **Tip**: These are comprehensive scores from external credit bureaus, similar to credit scores. Higher scores indicate better credit.
 
-### 3.3 Start Assessment
+### 3.2 Start Assessment
 
-#### 3.3.1 Submit Assessment
+#### 3.2.1 Submit Assessment
 
 After filling all information, click **🔍 Start Assessment** button.
 
-> **[Screenshot Placeholder 8: Assessment Result Interface]**
-> Description: Complete assessment results showing default probability, risk level, decision recommendation
+![Assessment Result Interface](assets/Assessment%20Result%20Interface.png)
+*Complete assessment results showing default probability, risk level, decision recommendation*
 
-#### 3.3.2 Result Interpretation
+#### 3.2.2 Result Interpretation
 
 **Top Metric Cards**:
 - **Default Probability**: Customer's default likelihood (percentage)
 - **Risk Level**: Low Risk ✅ / Medium Risk ⚠️ / High Risk ❌
 - **Decision**: Approve / Review Required / Reject
-
-> **[Screenshot Placeholder 9: Risk Level Gauge]**
-> Description: Colored risk level gauge (green=low risk, yellow=medium risk, red=high risk)
 
 **Risk Level Classification**:
 
@@ -192,10 +183,10 @@ After filling all information, click **🔍 Start Assessment** button.
 
 **Default Threshold**: 0.24 (24%)
 
-#### 3.3.3 Decision Analysis
+#### 3.2.3 Decision Analysis
 
-> **[Screenshot Placeholder 10: SHAP Decision Analysis]**
-> Description: "Positive Factors" and "Risk Factors" lists
+![SHAP Decision Analysis](assets/SHAP%20Decision%20Analysis.png)
+*"Positive Factors" and "Risk Factors" lists*
 
 **Positive Factors** (green ✅): Factors that reduce default risk
 - Example: High income, stable job, property ownership
@@ -208,7 +199,7 @@ After filling all information, click **🔍 Start Assessment** button.
 - Positive value = Increases risk (unfavorable)
 - Larger absolute value = Greater impact
 
-### 3.4 Quick Test
+### 3.3 Quick Test
 
 Click **📋 Load Sample Data** to auto-fill test data for quick experience.
 
@@ -220,13 +211,10 @@ Click **📋 Load Sample Data** to auto-fill test data for quick experience.
 
 Click **📤 Batch Prediction** in the sidebar.
 
-> **[Screenshot Placeholder 11: Batch Prediction Page Initial State]**
-> Description: Three-step interface of batch prediction page
+![Batch Prediction Page Initial State](assets/Batch%20Prediction%20Page%20Initial%20State.png)
+*Three-step interface of batch prediction page*
 
 ### 4.2 Step 1: Download CSV Template
-
-> **[Screenshot Placeholder 12: CSV Template Download Button]**
-> Description: "Download CSV Template" button
 
 Click **📥 Download CSV Template** to get the standard template file.
 
@@ -243,21 +231,17 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 ```
 
 ### 4.3 Step 2: Upload Data File
-
-> **[Screenshot Placeholder 13: File Upload Area]**
-> Description: CSV file upload interface
-
 1. Prepare CSV file matching template format
 2. Click **Select CSV file** to upload
 3. System displays data preview and row count
 
-> **[Screenshot Placeholder 14: Data Preview Table]**
-> Description: First few rows preview of uploaded data
+![Data Preview Table](assets/Data%20Preview%20Table.png)
+*First few rows preview of uploaded data*
 
 ### 4.4 Step 3: Start Prediction
 
-> **[Screenshot Placeholder 15: Batch Prediction Result Interface]**
-> Description: Statistics and result table after batch prediction completion
+![Batch Prediction Result Interface](assets/Batch%20Prediction%20Result%20Interface.png)
+*Statistics and result table after batch prediction completion*
 
 Click **🚀 Batch Predict** to start processing.
 
@@ -277,8 +261,8 @@ Click **💾 Download Results CSV** to save prediction results.
 
 Click **📊 Model Report** in the sidebar.
 
-> **[Screenshot Placeholder 16: Model Report Page]**
-> Description: Model performance metrics, feature importance, fairness analysis
+![Model Report Page](assets/Model%20Report%20Page.png)
+*Model performance metrics, feature importance, fairness analysis*
 
 ### 5.2 Model Performance
 
@@ -287,15 +271,7 @@ Click **📊 Model Report** in the sidebar.
 | AUC | ~0.76 | Model discrimination ability (0.5=random, 1.0=perfect) |
 | F1 Score | ~0.25 | Harmonic mean of precision and recall |
 | Best Threshold | 0.24 | Optimal decision boundary for classification |
-
-> **[Screenshot Placeholder 17: Model Performance Metric Cards]**
-> Description: Three Metric cards showing performance indicators
-
 ### 5.3 Feature Importance
-
-> **[Screenshot Placeholder 18: Feature Importance Bar Chart]**
-> Description: Horizontal bar chart of Top 15 features
-
 **Most Important Features**:
 1. EXT_SOURCE_2/3 - External credit scores
 2. AMT_ANNUITY - Monthly payment amount
@@ -305,10 +281,6 @@ Click **📊 Model Report** in the sidebar.
 **Interpretation**: Higher feature importance means greater impact on default risk.
 
 ### 5.4 Fairness Analysis
-
-> **[Screenshot Placeholder 19: Fairness Analysis Metrics]**
-> Description: Gender DI and Age DI assessment results
-
 | Metric | Value | Status |
 |--------|-------|--------|
 | Gender DI | 0.8139 | ✅ Acceptable |
@@ -326,8 +298,8 @@ Click **📊 Model Report** in the sidebar.
 
 Click **📜 Prediction History** in the sidebar.
 
-> **[Screenshot Placeholder 20: Prediction History Page]**
-> Description: History record list and statistics
+![Prediction History Page](assets/Prediction%20History%20Page.png)
+*History record list and statistics*
 
 **Summary Statistics**:
 - Total Records
@@ -341,14 +313,9 @@ Each record contains:
 - **Mode**: single / batch
 - **Input Summary**: Customer basic information
 - **Result**: Default probability, risk level, decision
-
-> **[Screenshot Placeholder 21: Expanded History Record Detail]**
-> Description: One expanded history record with complete information
-
 ### 6.3 Clear History
 
 Click **🗑️ Clear History** to delete all history data.
-
 ---
 
 ## 7. System Settings
@@ -357,8 +324,8 @@ Click **🗑️ Clear History** to delete all history data.
 
 Click **⚙️ Advanced Settings** in the sidebar.
 
-> **[Screenshot Placeholder 22: Advanced Settings Expanded]**
-> Description: Language selection and threshold adjustment settings
+![Advanced Settings Expanded](assets/Advanced%20Settings%20Expanded.png)
+*Language selection and threshold adjustment settings*
 
 ### 7.2 Language Switching
 
@@ -367,9 +334,6 @@ Click **⚙️ Advanced Settings** in the sidebar.
 - 🇺🇸 English
 
 Interface updates immediately after switching language.
-
-> **[Screenshot Placeholder 23: Chinese/English Interface Comparison]**
-> Description: Side-by-side comparison of same page in Chinese and English
 
 ### 7.3 Threshold Adjustment
 
@@ -384,9 +348,6 @@ Interface updates immediately after switching language.
 
 **Adjustment Method**: Drag slider to adjust threshold
 
-> **[Screenshot Placeholder 24: Threshold Adjustment Slider]**
-> Description: Threshold adjustment slider control
-
 **Impact**:
 - Changes low/medium/high risk boundaries
 - Affects all prediction results in real-time
@@ -398,8 +359,8 @@ Model information displayed at sidebar bottom:
 - **F1**: Overall score
 - **Threshold**: Current threshold value
 
-> **[Screenshot Placeholder 25: Sidebar Model Information Area]**
-> Description: Model information card at sidebar bottom
+![Sidebar Model Information Area](assets/Sidebar%20Model%20Information%20Area.png)
+*Model information card at sidebar bottom*
 
 ---
 
