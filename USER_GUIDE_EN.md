@@ -59,8 +59,8 @@ The application will open automatically in your browser (or visit `http://localh
 
 ### 2.2 Interface Overview
 
-![Main Interface](assets/Main%20Interface.png)
-*Initial application view showing sidebar and main content area*
+<img src="./assets/Main%20Interface.png" width="700">
+> Description: Initial application view showing sidebar and main content area
 
 **Interface Components**:
 
@@ -92,8 +92,8 @@ The application will open automatically in your browser (or visit `http://localh
 
 #### 3.1.1 Basic Information
 
-![Basic Information Input Area](assets/Basic%20Information%20Input%20Area.png)
-*Expanded "Basic Information" form with gender, age, marital status fields*
+<img src="./assets/Basic%20Information%20Input%20Area.png" width="700">
+> Description: Expanded "Basic Information" form with gender, age, marital status fields
 
 | Field | Description | Range |
 |------|-------------|-------|
@@ -107,8 +107,8 @@ The application will open automatically in your browser (or visit `http://localh
 
 #### 3.1.2 Financial Information
 
-![Financial Information Input Area](assets/Financial%20Information%20Input%20Area.png)
-*Expanded "Financial Information" form with income, loan amount, monthly payment*
+<img src="./assets/Financial%20Information%20Input%20Area.png" width="700">
+> Description: Expanded "Financial Information" form with income, loan amount, monthly payment
 
 | Field | Description | Unit |
 |------|-------------|------|
@@ -123,8 +123,8 @@ The application will open automatically in your browser (or visit `http://localh
 
 #### 3.1.3 Employment Information
 
-![Employment Information Input Area](assets/Employment%20Information%20Input%20Area.png)
-*Expanded "Employment Information" form with income type, occupation, work years*
+<img src="./assets/Employment%20Information%20Input%20Area.png" width="700">
+> Description: Expanded "Employment Information" form with income type, occupation, work years
 
 | Field | Description | Options |
 |------|-------------|--------|
@@ -134,8 +134,8 @@ The application will open automatically in your browser (or visit `http://localh
 
 #### 3.1.4 Asset Information
 
-![Asset Information Input Area](assets/Asset%20Information%20Input%20Area.png)
-*Expanded "Asset Information" form with property, vehicle, etc.*
+<img src="./assets/Asset%20Information%20Input%20Area.png" width="700">
+> Description: Expanded "Asset Information" form with property, vehicle, etc.
 
 | Field | Description | Options |
 |------|-------------|--------|
@@ -146,8 +146,8 @@ The application will open automatically in your browser (or visit `http://localh
 
 #### 3.1.5 External Credit Scores
 
-![External Credit Scores Input Area](assets/External%20Credit%20Scores%20Input%20Area.png)
-*Expanded "External Credit Scores" form with three sliders*
+<img src="./assets/External%20Credit%20Scores%20Input%20Area.png" width="700">
+> Description: Expanded "External Credit Scores" form with three sliders
 
 | Field | Description | Range |
 |------|-------------|-------|
@@ -163,8 +163,8 @@ The application will open automatically in your browser (or visit `http://localh
 
 After filling all information, click **🔍 Start Assessment** button.
 
-![Assessment Result Interface](assets/Assessment%20Result%20Interface.png)
-*Complete assessment results showing default probability, risk level, decision recommendation*
+<img src="./assets/Assessment%20Result%20Interface.png" width="700">
+> Description: Complete assessment results showing default probability, risk level, decision recommendation
 
 #### 3.2.2 Result Interpretation
 
@@ -185,8 +185,8 @@ After filling all information, click **🔍 Start Assessment** button.
 
 #### 3.2.3 Decision Analysis
 
-![SHAP Decision Analysis](assets/SHAP%20Decision%20Analysis.png)
-*"Positive Factors" and "Risk Factors" lists*
+<img src="./assets/SHAP%20Decision%20Analysis.png" width="700">
+> Description: "Positive Factors" and "Risk Factors" lists
 
 **Positive Factors** (green ✅): Factors that reduce default risk
 - Example: High income, stable job, property ownership
@@ -211,8 +211,8 @@ Click **📋 Load Sample Data** to auto-fill test data for quick experience.
 
 Click **📤 Batch Prediction** in the sidebar.
 
-![Batch Prediction Page Initial State](assets/Batch%20Prediction%20Page%20Initial%20State.png)
-*Three-step interface of batch prediction page*
+<img src="./assets/Batch%20Prediction%20Page%20Initial%20State.png" width="700">
+> Description: Three-step interface of batch prediction page
 
 ### 4.2 Step 1: Download CSV Template
 
@@ -235,13 +235,13 @@ REGION_RATING_CLIENT, EXT_SOURCE_1, EXT_SOURCE_2, EXT_SOURCE_3,
 2. Click **Select CSV file** to upload
 3. System displays data preview and row count
 
-![Data Preview Table](assets/Data%20Preview%20Table.png)
-*First few rows preview of uploaded data*
+<img src="./assets/Data%20Preview%20Table.png" width="700">
+> Description: First few rows preview of uploaded data
 
 ### 4.4 Step 3: Start Prediction
 
-![Batch Prediction Result Interface](assets/Batch%20Prediction%20Result%20Interface.png)
-*Statistics and result table after batch prediction completion*
+<img src="./assets/Batch%20Prediction%20Result%20Interface.png" width="700">
+> Description: Statistics and result table after batch prediction completion
 
 Click **🚀 Batch Predict** to start processing.
 
@@ -261,8 +261,8 @@ Click **💾 Download Results CSV** to save prediction results.
 
 Click **📊 Model Report** in the sidebar.
 
-![Model Report Page](assets/Model%20Report%20Page.png)
-*Model performance metrics, feature importance, fairness analysis*
+<img src="./assets/Model%20Report%20Page.png" width="700">
+> Description: Model performance metrics, feature importance, fairness analysis
 
 ### 5.2 Model Performance
 
@@ -298,8 +298,8 @@ Click **📊 Model Report** in the sidebar.
 
 Click **📜 Prediction History** in the sidebar.
 
-![Prediction History Page](assets/Prediction%20History%20Page.png)
-*History record list and statistics*
+<img src="./assets/Prediction%20History%20Page.png" width="700">
+> Description: History record list and statistics
 
 **Summary Statistics**:
 - Total Records
@@ -324,8 +324,8 @@ Click **🗑️ Clear History** to delete all history data.
 
 Click **⚙️ Advanced Settings** in the sidebar.
 
-![Advanced Settings Expanded](assets/Advanced%20Settings%20Expanded.png)
-*Language selection and threshold adjustment settings*
+<img src="./assets/Advanced%20Settings%20Expanded.png" width="700">
+> Description: Language selection and threshold adjustment settings
 
 ### 7.2 Language Switching
 
@@ -359,8 +359,8 @@ Model information displayed at sidebar bottom:
 - **F1**: Overall score
 - **Threshold**: Current threshold value
 
-![Sidebar Model Information Area](assets/Sidebar%20Model%20Information%20Area.png)
-*Model information card at sidebar bottom*
+<img src="./assets/Sidebar%20Model%20Information%20Area.png" width="700">
+> Description: Model information card at sidebar bottom
 
 ---
 
